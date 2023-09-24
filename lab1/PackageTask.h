@@ -12,27 +12,34 @@
 /** Пакетированная задача выполнения */
 class PackageTask {
 private:
+    const int PROCESS_OPERATION_EXECUTE_TIME = 5;
+    const int NORMAL_OPERATION_EXECUTE_TIME = 10;
     const int IO_OPERATION_EXECUTE_TIME = 20;
-    const int NORMAL_OPERATION_EXECUTE_TIME = 5;
 
     int operationCount = 0;
     PackageTaskType type;
     double executeTime = 0;
 
     void generateCountOfOperations() {
-        srand((unsigned) time(NULL));
-
         int operationCount = 0;
         if (this->type == IO)
-            operationCount = rand() % 30 + 20;
+            // 35 <= operationCount <= 50
+            operationCount = rand() % 15 + 35;
+        else if (this->type == Process)
+            // 0 <= operationCount <= 15
+            operationCount = rand() % 15;
         else if (this->type == Balanced)
-            operationCount = rand() % 20;
+            // 15 <= operationCount <= 35
+            operationCount = rand() % 20 + 15;
+
         this->operationCount = operationCount;
     }
 
     void executeTimeOperations() {
         if (type == IO)
             this->executeTime = IO_OPERATION_EXECUTE_TIME * operationCount;
+        else if (type == Process)
+            this->executeTime = PROCESS_OPERATION_EXECUTE_TIME * operationCount;
         else if (type == Balanced)
             this->executeTime = NORMAL_OPERATION_EXECUTE_TIME * operationCount;
     }
@@ -44,12 +51,22 @@ public:
         this->executeTimeOperations();
     }
 
-    void printInfo() {
-
-    }
-
     double getExecuteTime() {
         return this->executeTime;
+    }
+
+    void printInfo() {
+        printf("Task ");
+        if (this->type == Process)
+            printf("PROCESS");
+        else if (this->type == IO)
+            printf("IO\t");
+        else if (this->type == Balanced)
+            printf("BALANCED");
+
+        printf("\toperations = %d", this->operationCount);
+        printf("\texecute time = %d", (int)this->executeTime);
+        printf("\n");
     }
 };
 

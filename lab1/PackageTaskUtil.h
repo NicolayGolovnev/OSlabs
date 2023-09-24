@@ -12,6 +12,7 @@ enum PackageLevelType {
 };
 
 enum PackageTaskType {
+    Process,
     IO,
     Balanced
 };
