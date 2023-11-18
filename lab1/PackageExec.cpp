@@ -19,3 +19,9 @@ void runPackageExecute() {
     for (auto* package : *packages)
         package->run();
 }
+
+int main() {
+    runPackageExecute();
+
+    return 0;
+}

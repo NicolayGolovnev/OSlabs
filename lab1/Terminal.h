@@ -6,6 +6,9 @@
 #define OSLABS_TERMINAL_H
 
 #include <cstdio>
+#include <iostream>
+#include <string>
+
 #include "PackageTaskUtil.h"
 
 // Выбор кол-ва сессий
