@@ -5,7 +5,6 @@
 #ifndef CLIENT_H
 #define CLIENT_H
 
-// #include <stdafx.h>
 #include <windows.h>
 #include <iostream>
 #include <process.h>

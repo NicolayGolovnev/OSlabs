@@ -19,18 +19,14 @@ int runServerExecute() {
     Server *server = new Server(SERVER_IP, 66010);
     server->connect();
 
-    std::vector<std::thread> threads;
-
     // TODO разобраться с этой шляпой
     while (true) {
         server->accept();
         int socket = server->getSocket();
-        threads.push_back(std::thread(ClientHandler, &server, socket));
-    }
-
-    std::vector<std::thread>::iterator it;
-    for (it = threads.begin(); it != threads.end(); it++) {
-        it->join();
+        std::thread client = std::thread(ClientHandler, &server, socket);
+        // Отсоединяем , так как если сделаем .join(),
+        // то будем ожидать, пока данный поток завершится
+        client.detach();
     }
 
     server->close();
@@ -41,9 +37,6 @@ int runServerExecute() {
 }
 
 int main() {
-    // Для отображения русских символов в консоли
-    system("chcp 65001");
-
     runServerExecute();
 
     return 0;

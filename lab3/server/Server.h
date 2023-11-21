@@ -5,19 +5,11 @@
 #ifndef SERVER_H
 #define SERVER_H
 
-// #include <stdafx.h>
 #include <windows.h>
 #include <iostream>
 #include <process.h>
 #include <string>
-
 #include <vector>
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <memory.h>
-#include <errno.h>
-#include <unistd.h>
 
 // Отображение загрузки ws2_32.dll ws2_32.dll
 #pragma comment(lib, "ws2_32.lib")
@@ -85,7 +77,7 @@ public:
             return ;
         }
 
-        // SOMAXCONN - сколько клиентских запросов можно сохранить, что очень полезно для параллельного программирования.
+        // SOMAXCONN - сколько клиентских запросов можно сохранить
         listen(this->serverSocket, SOMAXCONN);
 
         getsockname(this->serverSocket, reinterpret_cast<struct sockaddr*>(&this->serverAddress), &serverAddressLength);

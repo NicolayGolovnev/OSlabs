@@ -10,13 +10,10 @@
 
 #include "Client.h"
 
-void SendMsgHandler(void *param) {
-    Client **client = (Client **)(param);
-
+void SendMsgHandler(Client **client) {
     while (true) {
         try {
             std::string message;
-            // std::cout << "> ";
             std::getline(std::cin, message);
             (*client)->send(message);
         }
@@ -26,9 +23,7 @@ void SendMsgHandler(void *param) {
     }
 }
 
-void ReceiveMsgHandler(void* param) {
-    Client **client = (Client **)(param);
-
+void ReceiveMsgHandler(Client **client) {
     while (true) {
         try {
             (*client)->receive(0);
@@ -43,16 +38,11 @@ int runClientExecute() {
     Client *client = new Client(SERVER_IP, 66010);
     client->connect();
 
-    // TODO переписать на _beginthread
     std::thread sendThread = std::thread(SendMsgHandler, &client);
     std::thread receiveThread = std::thread(ReceiveMsgHandler, &client);
 
     sendThread.join();
     receiveThread.join();
-
-    // _beginthread(SendMsgHandler, 0, &client);
-    // _beginthread(ReceiveMsgHandler, 0, &client);
-    // Sleep(INFINITE);
 
     client->close();
 
@@ -62,9 +52,6 @@ int runClientExecute() {
 }
 
 int main() {
-    // Для отображения русских символов в консоли
-    system("chcp 65001");
-
     runClientExecute();
 
     return 0;
