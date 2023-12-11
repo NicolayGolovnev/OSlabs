@@ -54,7 +54,7 @@ public:
 
         printf("\toperations = %d", this->operationCount);
         printf("\ttotal execute time = %d", (int)this->executeTime);
-        printf("\twaiting time = %d", this->execution->getElapsedExecutionTime() - (int)this->executeTime);
+        printf("\telapsed execute time = %d", this->execution->getElapsedExecutionTime() - (int)this->executeTime);
         printf("\n");
     }
 

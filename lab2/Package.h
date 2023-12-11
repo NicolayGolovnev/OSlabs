@@ -45,17 +45,15 @@ private:
             task->getExecutionObject()->setProcessingStartIfNotStarted(executionTime);
 
             while (task->getExecutionObject()->isExecuteTaskNow(currentExecTime)) {
-                // Увеличиваем время выполнения
-                executionTime++;
-
                 // Если мы не сможем закончить выполенение задачи за отведенной время - выходим
-                if (task->getExecutionObject()->isOperationNotEnded()) {
-                    executionTime--;
+                if (task->getExecutionObject()->isOperationNotEnded())
                     break;
-                }
 
                 // Тратим время на выполнение
                 task->getExecutionObject()->increaseExecutionTime();
+
+                // Увеличиваем время выполнения
+                executionTime++;
                 currentExecTime++;
 
                 // Если завершили выполнение задачи - выходим
@@ -91,7 +89,7 @@ private:
         }
 
         printf("All execution time = %d\n", (int)this->totalExecutionTime);
-        printf("All waiting time = %d\n\n", this->totalElapsedExecutionTime - (int)this->totalExecutionTime);
+        printf("All elapsed execute time = %d\n\n", this->totalElapsedExecutionTime);
     }
 public:
     Package(int _serial) {
